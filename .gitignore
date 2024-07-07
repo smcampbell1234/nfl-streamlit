@@ -1,5 +1,7 @@
 # Don't or Do overwrite you csv files, which are your databases
 data/*
+# But do not ignore this specific file
+!data/nfl2024.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
