@@ -20,7 +20,6 @@ def create_games():
         count = 0
         for index, row in new_games_df.iterrows():
             count += 1
-            print(count)
             game_id = f"game_{count}"  # Creating new game_id
             date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Using the current time; adjust format as needed
             new_game = {
@@ -41,7 +40,6 @@ def create_games():
             }
             new_games.append(new_game)
 
-        print(new_games)
         # Add games to games_df
         # Update games_df with new games
         games_df = pd.concat([games_df, pd.DataFrame(new_games)], ignore_index=True)

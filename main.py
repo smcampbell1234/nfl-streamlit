@@ -136,8 +136,8 @@ st.header(f'NFL {selected_season} Season')
 st.markdown(f"<div class='h5 italic margin-bottom-15' style='font-weight: normal;'>Brought to you by your Comissioner.</div>", unsafe_allow_html=True)
 isEditMode = False
 if st.checkbox('Edit Mode'):
-    isEditMode = True
-    # isEditMode = st.text_input('Edit Mode Password', placeholder='edit password') == 'edit'
+    # isEditMode = True
+    isEditMode = st.text_input('Edit Mode Password', placeholder='edit password') == 'edit'
 
 if isEditMode:
     st.markdown(f"<div class='h3 red italic easy-top-bottom-margin '>Edit Mode</div>", unsafe_allow_html=True)
