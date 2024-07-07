@@ -2,6 +2,7 @@
 data/*
 # But do not ignore this specific file
 !data/nfl2024.csv
+!data/users.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
