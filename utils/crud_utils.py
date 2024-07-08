@@ -157,7 +157,7 @@ def update_season_leaderboard(season):
                 'draws': results.get('draw', 0),
                 'bets': results['total_bets']
             }
-            leaderboard_df = leaderboard_df.append(user_row, ignore_index=True)
+            leaderboard_df = pd.concat([leaderboard_df, pd.DataFrame([user_row])], ignore_index=True)
 
         # Save updated leaderboard
         leaderboard_df.to_csv(leaderboard_file_path, index=False)

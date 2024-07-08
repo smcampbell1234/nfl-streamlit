@@ -131,20 +131,26 @@ def update_game(game_id, **kwargs):
     else:
         st.error(f"Game with game_id {game_id} does not exist.")
 
+
 def create_user(new_user):
     # Load the existing users DataFrame
     users_df = pd.read_csv(users_file_path)
     
-    # Append the new user
-    users_df = users_df.append(new_user, ignore_index=True)
+    # Convert new_user dictionary to DataFrame
+    new_user_df = pd.DataFrame([new_user])
     
-    # Save the DataFrame back to the CSV
-    users_df.to_csv(users_file_path, index=False)
-
+    # Concatenate the new user DataFrame to the existing users DataFrame
+    updated_users_df = pd.concat([users_df, new_user_df], ignore_index=True)
+    
+    # Save the updated DataFrame back to the CSV
+    updated_users_df.to_csv(users_file_path, index=False)
+    
+    # Reload users into the session state
     st.session_state.users_df = get_users()
     
     # Provide feedback to the user
     st.success(f"User '{new_user['user']}' added successfully!")
+
 
 def create_bet(new_bet):
     bets_df = pd.read_csv(bets_file_path)
@@ -241,10 +247,18 @@ def update_active_week(new_week, season):
     seasons_df.to_csv(seasons_file_path, index=False)
     st.session_state.seasons_df = pd.read_csv(seasons_file_path)
 
+
 def add_game(new_game):
     games_df = st.session_state.games_df
-    # Append the new game to the DataFrame
-    games_df = games_df.append(new_game, ignore_index=True)
-    # Save the updated DataFrame to CSV
-    games_df.to_csv(games_file_path, index=False)
-    st.session_state.games_df = pd.read_csv(games_file_path)  
+    
+    # Convert new_game dictionary to DataFrame
+    new_game_df = pd.DataFrame([new_game])
+    
+    # Concatenate the new game DataFrame to the existing games DataFrame
+    updated_games_df = pd.concat([games_df, new_game_df], ignore_index=True)
+    
+    # Save the updated DataFrame back to the CSV
+    updated_games_df.to_csv(games_file_path, index=False)
+    
+    # Reload games into the session state
+    st.session_state.games_df = pd.read_csv(games_file_path)

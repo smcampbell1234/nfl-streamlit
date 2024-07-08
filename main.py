@@ -137,7 +137,7 @@ st.markdown(f"<div class='h5 italic margin-bottom-15' style='font-weight: normal
 isEditMode = False
 if st.checkbox('Edit Mode'):
     # isEditMode = True
-    isEditMode = st.text_input('Edit Mode Password', placeholder='edit password') == 'edit'
+    isEditMode = st.text_input('Edit Mode Password', placeholder='Edit').lower() == 'edit'
 
 if isEditMode:
     st.markdown(f"<div class='h3 red italic easy-top-bottom-margin '>Edit Mode</div>", unsafe_allow_html=True)
@@ -186,10 +186,17 @@ selected_week = st.number_input(
 users = [''] + st.session_state.users_df['user'].unique().tolist()
 selected_user = st.selectbox("Place your bets", users, index=0)
 
+if isEditMode:
+    if st.checkbox("Add a new better"):
+        handle_create_user()
+    st.write('')
+    st.write('')
+
 # Season Leaderboard
 st.header("Season Leaderboard")
-if st.button('Refresh Season Leaderboard'):
-    update_season_leaderboard(selected_season)
+if isEditMode:
+    if st.button('Refresh Season Leaderboard'):
+        update_season_leaderboard(selected_season)
 display_leaderboard()
 
 # Weeks Wins Leaderboard goes here
@@ -197,9 +204,6 @@ weekly_leaderboard(selected_week)
 
 
 
-if isEditMode:
-    if st.checkbox("Add a new better"):
-        handle_create_user()
 
 week_games = st.session_state.games_df[st.session_state.games_df['week'] == selected_week]
 
