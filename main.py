@@ -172,16 +172,20 @@ if isEditMode:
     st.write('')
     st.write('')
     st.write('')
+st.write('')
+st.write('')
 
-active_week = get_active_week()
-selected_week = st.number_input(
-    'Week',
-    value=active_week,
-    min_value=1,
-    max_value=30,
-    step=1,
-    key="Weeks Select"
-    )
+if not isEditMode:
+    active_week = get_active_week()
+    selected_week = st.number_input(
+        'Week',
+        value=active_week,
+        min_value=1,
+        max_value=30,
+        step=1,
+        key="Weeks Select"
+        )
+
 
 users = [''] + st.session_state.users_df['user'].unique().tolist()
 selected_user = st.selectbox("Place your bets", users, index=0)
@@ -192,6 +196,12 @@ if isEditMode:
     st.write('')
     st.write('')
 
+st.write('')
+st.write('')
+st.write('')
+st.write('')
+st.write('')
+st.write('')
 # Season Leaderboard
 st.header("Season Leaderboard")
 if isEditMode:
@@ -207,6 +217,12 @@ weekly_leaderboard(selected_week)
 
 week_games = st.session_state.games_df[st.session_state.games_df['week'] == selected_week]
 
+st.write('')
+st.write('')
+st.write('')
+st.write('')
+st.write('')
+st.write('')
 st.write('')
 st.write('')
 st.write('')
