@@ -262,3 +262,31 @@ def add_game(new_game):
     
     # Reload games into the session state
     st.session_state.games_df = pd.read_csv(games_file_path)
+
+
+# Function to create a download button for a file
+def create_download_button(csv_name):
+    file_path = ''
+    if csv_name in ['bets', 'games', 'leaderboard', 'seasons', 'users', 'nfl2024']:
+        if csv_name == 'bets':
+            file_path = bets_file_path
+        elif csv_name == 'games':
+            file_path = games_file_path
+        elif csv_name == 'leaderboard':
+            file_path = leaderboard_file_path
+        elif csv_name == 'seasons':
+            file_path = seasons_file_path
+        elif csv_name == 'users':
+            file_path = users_file_path
+        elif csv_name == 'nfl2024':
+            file_path = new_season_file_path
+        else:
+            file_path = bets_file_path
+    file_name = os.path.basename(file_path)
+    with open(file_path, "rb") as file:
+        st.download_button(
+            label=f"Download {file_name}",
+            data=file,
+            file_name=file_name,
+            mime='text/csv'
+        )

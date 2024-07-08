@@ -5,7 +5,7 @@ from utils.general_utils import gen_unique, get_index, get_active_season, get_ac
 from utils.crud_utils import handle_update_game, handle_create_user, handle_bet, handle_refresh_week, update_season_leaderboard, handle_set_season, handle_set_week, handle_add_game
 from style.style import app_css
 
-from data_handling.data_handling import bets_file_path, users_file_path
+from data_handling.data_handling import bets_file_path, users_file_path, create_download_button
 
 # betters = ['Lane', 'Russell', 'Delia', 'Sean', 'Shane']
 teams = [
@@ -175,8 +175,9 @@ if isEditMode:
 st.write('')
 st.write('')
 
+active_week = get_active_week()
+selected_week = active_week
 if not isEditMode:
-    active_week = get_active_week()
     selected_week = st.number_input(
         'Week',
         value=active_week,
@@ -406,9 +407,23 @@ if isEditMode:
     st.write('')
     st.write('')
     st.write('')
+    if st.checkbox('Download DBs'):
+        st.write("Download CSV Files:")
+        create_download_button('games')
+        create_download_button('users')
+        create_download_button('bets')
+        create_download_button('seasons')
+        create_download_button('leaderboard')
+    
+    st.write('')
+    st.write('')
+    st.write('')
     if st.checkbox('View Bets DataFrame'):
         st.header('st.session_state.bets_df')
         st.table(st.session_state.bets_df)
+    st.write('')
+    st.write('')
+    st.write('')
     if st.checkbox('View Games DataFrame'):
         st.header('st.session_state.games_df')
         st.write(week_games)
